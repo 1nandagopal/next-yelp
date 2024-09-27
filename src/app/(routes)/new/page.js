@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { NewCampgroundForm } from "./new-campground-form";
 
-export default function NewCampground() {
+export default function NewCampgroundPage() {
   return (
     <div className="p-10 max-w-4xl mx-auto">
       <div className="mb-10 flex justify-between items-center">

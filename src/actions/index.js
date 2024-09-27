@@ -1,0 +1,1 @@
+export { newCampground } from "./campgrounds";

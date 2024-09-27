@@ -2,7 +2,7 @@
 
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useFormState } from "react-dom";
-import { newCampground } from "@/actions/new-campground";
+import { newCampground } from "@/actions";
 
 export function NewCampgroundForm() {
   const [error, formAction] = useFormState(newCampground, null);
