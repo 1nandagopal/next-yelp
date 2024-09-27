@@ -21,5 +21,16 @@ export async function newCampground(prevState, formData) {
   } catch (error) {
     return { _form: "Submission failed. Try again!" };
   }
+
   redirect("/campgrounds");
+}
+
+export async function getAllCampgrounds() {
+  try {
+    await connectDB();
+    const campgrounds = await Campground.find();
+    return campgrounds;
+  } catch (error) {
+    console.log(error);
+  }
 }
