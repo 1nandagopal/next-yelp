@@ -10,9 +10,9 @@ export function NewCampgroundForm() {
     <form action={formAction}>
       <div className="flex flex-col gap-5 ">
         <Input type="text" name="title" label="Title" isRequired />
-        <Textarea label="Description" isRequired />
-        <Input type="price" label="Price" isRequired />
-        <Input type="text" label="Location" isRequired />
+        <Textarea name="description" label="Description" isRequired />
+        <Input type="price" name="price" label="Price" isRequired />
+        <Input type="text" name="location" label="Location" isRequired />
         <Button type="submit" color="primary" className="w-40">
           Submit
         </Button>
