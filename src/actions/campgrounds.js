@@ -3,6 +3,8 @@
 import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campground";
+import mongoose from "mongoose";
+import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
   const title = formData.get("title");
@@ -12,20 +14,35 @@ export async function newCampground(prevState, formData) {
   const images = formData.getAll("images");
 
   try {
-    images.slice(0, Math.min(5, images.length)).forEach(async (image) => {
-      const buffer = new Uint8Array(await image.arrayBuffer());
-      const uploadResponse = await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({ folder: "next-yelp" }, (err, result) => {
-            if (err) reject(err);
-            resolve(result);
-          })
-          .end(buffer);
-      });
+    const imageURLs = await Promise.all(
+      images.slice(0, Math.min(5, images.length)).map(async (image) => {
+        const buffer = new Uint8Array(await image.arrayBuffer());
+        const uploadResponse = await new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream({ folder: "next-yelp" }, (err, result) => {
+              if (err) reject(err);
+              resolve(result);
+            })
+            .end(buffer);
+        });
+        return uploadResponse.secure_url;
+      })
+    );
+    await connectDB(imageURLs);
+    let camp = await Campground.create({
+      title,
+      description,
+      price,
+      location,
+      images: imageURLs,
     });
+
+    console.log(camp);
   } catch (e) {
     console.log(e);
   }
+
+  redirect("/campgrounds");
 }
 
 export async function getAllCampgrounds() {
