@@ -7,15 +7,16 @@ import { useState } from "react";
 
 export function NewCampgroundForm() {
   const [error, formAction] = useFormState(newCampground, null);
-  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
 
   function handleSelect(e) {
-    console.dir(e.target.files);
-    let arr = [];
-    for (let i = 0; i < 5; i++)
-      if (e.target.files[i]) arr.push(URL.createObjectURL(e.target.files[i]));
-    setImages(arr);
+    const { files } = e.target;
+    const urlArr = Array.from(files)
+      .slice(0, Math.min(5, files.length))
+      .map((file) => URL.createObjectURL(file));
+    setImageURLs(urlArr);
   }
+
   return (
     <form action={formAction}>
       <div className="flex flex-col gap-5">
@@ -60,9 +61,9 @@ export function NewCampgroundForm() {
           isRequired
           placeholder="Select upto 5 images(Max 2MB)"
         />
-        {images.length && (
+        {!!imageURLs.length && (
           <div className="flex flex-wrap gap-2">
-            {images.map((image) => (
+            {imageURLs.map((image) => (
               <Image
                 src={image}
                 fill
