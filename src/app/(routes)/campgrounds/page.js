@@ -23,7 +23,7 @@ export default async function AllCampgroundsPage() {
             </CardHeader>
             <CardBody className="space-y-2 p-0 px-3">
               <Image
-                src="https://placehold.co/200x400"
+                src={campground.images[0]}
                 width={300}
                 height={250}
                 className="object-cover"
