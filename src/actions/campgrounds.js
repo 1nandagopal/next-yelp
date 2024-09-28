@@ -1,28 +1,31 @@
 "use server";
 
+import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campground";
-import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
   const title = formData.get("title");
   const description = formData.get("description");
   const price = formData.get("price");
   const location = formData.get("location");
+  const images = formData.getAll("images");
 
   try {
-    await connectDB();
-    await Campground.create({
-      title,
-      description,
-      price,
-      location,
+    images.slice(0, Math.min(5, images.length)).forEach(async (image) => {
+      const buffer = new Uint8Array(await image.arrayBuffer());
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream({ folder: "next-yelp" }, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          })
+          .end(buffer);
+      });
     });
-  } catch (error) {
-    return { _form: "Submission failed. Try again!" };
+  } catch (e) {
+    console.log(e);
   }
-
-  redirect("/campgrounds");
 }
 
 export async function getAllCampgrounds() {
