@@ -1,14 +1,10 @@
 import mongoose from "mongoose";
 
 export async function connectDB() {
-  console.log(mongoose.connection.readyState);
-
-  if (mongoose.connection.readyState) return true;
-
+  if (mongoose.connection.readyState) return mongoose.connection.getClient();
   try {
     await mongoose.connect(process.env.DB_URI);
-    console.log("db connected!");
-    return true;
+    return mongoose.connection.getClient();
   } catch (err) {
     console.log("db connection failed!");
   }
