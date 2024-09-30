@@ -65,6 +65,7 @@ export function NewCampgroundForm() {
           <div className="flex flex-wrap gap-2">
             {imageURLs.map((image) => (
               <Image
+                key={image}
                 src={image}
                 fill
                 height={125}
