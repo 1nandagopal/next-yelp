@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/libs/auth";
 import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campgrounds";
@@ -11,10 +12,14 @@ export async function newCampground(prevState, formData) {
   const price = formData.get("price");
   const location = formData.get("location");
   const images = formData.getAll("images");
+  const session = await auth();
+
+  if (!session?.user) return;
 
   try {
     const imageURLs = await Promise.all(
       images.slice(0, Math.min(5, images.length)).map(async (image) => {
+        if (image.size === 0) throw new Error("Empty images");
         const buffer = new Uint8Array(await image.arrayBuffer());
         const uploadResponse = await new Promise((resolve, reject) => {
           cloudinary.uploader
@@ -34,6 +39,7 @@ export async function newCampground(prevState, formData) {
       price,
       location,
       images: imageURLs,
+      author: session.user.id,
     });
 
     console.log(camp);
@@ -47,7 +53,9 @@ export async function newCampground(prevState, formData) {
 export async function getAllCampgrounds() {
   try {
     await connectDB();
-    const campgrounds = await Campground.find();
+    const campgrounds = await Campground.find().populate("author", "name -_id");
+    console.log(campgrounds);
+
     return campgrounds;
   } catch (error) {
     console.log(error);
