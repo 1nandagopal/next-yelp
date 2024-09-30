@@ -38,7 +38,7 @@ export default function AuthForm() {
               }`}
               isRequired
             />
-            <Button color="primary">
+            <Button color="primary" isDisabled>
               {mode === "signup" ? "Sign Up" : "Sign In"}
             </Button>
           </div>

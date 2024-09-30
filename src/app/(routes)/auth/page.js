@@ -1,3 +1,4 @@
+import { providerSignUp } from "@/actions";
 import AuthForm from "@/components/auth-form";
 import {
   Button,
@@ -20,23 +21,30 @@ export default async function AuthPage() {
         <Card className="p-5 w-[350px]">
           <CardBody className="space-y-4">
             <AuthForm />
-            <form>
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2">
-                  <hr className="flex-1 border-2 mt-0.5" />
-                  <div className="text-sm">Or continue via</div>
-                  <hr className="flex-1 border-2 mt-0.5" />
-                </div>
-                <div className="flex w-full gap-2">
-                  <Button className="bg-black text-white" fullWidth>
-                    Github
-                  </Button>
-                  <Button fullWidth isDisabled>
-                    Google
-                  </Button>
-                </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-2">
+                <hr className="flex-1 border-2 mt-0.5" />
+                <div className="text-sm">Or continue via</div>
+                <hr className="flex-1 border-2 mt-0.5" />
               </div>
-            </form>
+              <div className="flex gap-2">
+                <div className="w-full">
+                  <form action={providerSignUp.bind(null, "github")}>
+                    <Button
+                      type="submit"
+                      className="bg-black text-white"
+                      fullWidth
+                    >
+                      Github
+                    </Button>
+                  </form>
+                </div>
+                <Button fullWidth isDisabled>
+                  Google
+                </Button>
+              </div>
+            </div>
           </CardBody>
           <CardFooter></CardFooter>
         </Card>
