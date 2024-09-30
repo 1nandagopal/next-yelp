@@ -14,7 +14,6 @@ import Link from "next/link";
 
 export function NavAuth() {
   const session = useSession();
-  console.log(session);
 
   if (session.status === "loading")
     return (
