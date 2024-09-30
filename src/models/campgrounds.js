@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CampgroundSchema = new mongoose.Schema({
+const CampgroundsSchema = new mongoose.Schema({
   title: String,
   price: Number,
   description: String,
@@ -9,4 +9,4 @@ const CampgroundSchema = new mongoose.Schema({
 });
 
 export const Campground =
-  mongoose.models.Campground || mongoose.model("Campground", CampgroundSchema);
+  mongoose.models.Campground || mongoose.model("Campground", CampgroundsSchema);

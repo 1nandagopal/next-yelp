@@ -2,8 +2,7 @@
 
 import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
-import { Campground } from "@/models/campground";
-import mongoose from "mongoose";
+import { Campground } from "@/models/campgrounds";
 import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
