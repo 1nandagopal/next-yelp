@@ -53,10 +53,7 @@ export async function newCampground(prevState, formData) {
 export async function getAllCampgrounds() {
   try {
     await connectDB();
-    const campgrounds = await Campground.find().populate("author", "name -_id");
-    console.log(campgrounds);
-
-    return campgrounds;
+    return await Campground.find().populate("author", "name -_id");
   } catch (error) {
     console.log(error);
   }
