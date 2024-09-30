@@ -1,10 +1,12 @@
 import Navbar from "@/components/navbar";
-
+import { SessionProvider } from "next-auth/react";
 export default function Layout({ children }) {
   return (
-    <div className="h-screen">
-      <Navbar />
-      {children}
-    </div>
+    <SessionProvider>
+      <div className="h-screen">
+        <Navbar />
+        {children}
+      </div>
+    </SessionProvider>
   );
 }
