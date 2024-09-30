@@ -7,11 +7,8 @@ import {
 import Link from "next/link";
 import { NavAuth } from "./nav-auth";
 import { AddCampgroundsBtn } from "./nav-newcamp-btn";
-import { auth } from "@/libs/auth";
 
 export default async function Nav() {
-  const session = await auth();
-
   return (
     <Navbar position="static" maxWidth="full" className="mb-5">
       <Link href="/campgrounds">
@@ -20,11 +17,9 @@ export default async function Nav() {
         </NavbarBrand>
       </Link>
       <NavbarContent justify="end">
-        {session?.user && (
-          <NavbarItem>
-            <AddCampgroundsBtn />
-          </NavbarItem>
-        )}
+        <NavbarItem>
+          <AddCampgroundsBtn />
+        </NavbarItem>
         <NavbarItem>
           <NavAuth />
         </NavbarItem>
