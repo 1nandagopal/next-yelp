@@ -19,7 +19,7 @@ export async function NavAuth() {
     );
 
   return (
-    <div>
+    <div className="cursor-pointer">
       <Popover backdrop="opaque">
         <PopoverTrigger>
           <Avatar
