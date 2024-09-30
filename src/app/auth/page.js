@@ -9,6 +9,7 @@ import {
   NavbarBrand,
 } from "@nextui-org/react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function AuthPage() {
   return (
@@ -23,7 +24,9 @@ export default async function AuthPage() {
       <div className="flex justify-center items-center h-[calc(100%-84px)] ">
         <Card className="p-5 w-[350px]">
           <CardBody className="space-y-4">
-            <AuthForm />
+            <Suspense>
+              <AuthForm />
+            </Suspense>
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <hr className="flex-1 border-2 mt-0.5" />
