@@ -1,5 +1,6 @@
 import { Avatar, Navbar, NavbarBrand, NavbarContent } from "@nextui-org/react";
 import Link from "next/link";
+import { NavAuth } from "./nav-auth";
 
 export default function Nav() {
   return (
@@ -10,7 +11,7 @@ export default function Nav() {
         </NavbarBrand>
       </Link>
       <NavbarContent justify="end">
-        <Avatar src="">Apple</Avatar>
+        <NavAuth />
       </NavbarContent>
     </Navbar>
   );
