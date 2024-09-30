@@ -6,7 +6,7 @@ export default function Nav() {
     <Navbar position="static" maxWidth="full" className="mb-5 px-2">
       <Link href="/campgrounds">
         <NavbarBrand>
-          <p className="text-2xl font-semibold">Campgrounds</p>
+          <p className="text-3xl font-semibold">Campgrounds</p>
         </NavbarBrand>
       </Link>
       <NavbarContent justify="end">
