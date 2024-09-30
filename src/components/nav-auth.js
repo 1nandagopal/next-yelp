@@ -1,3 +1,4 @@
+import { signOutUser } from "@/actions/auth";
 import { auth } from "@/libs/auth";
 import {
   Avatar,
@@ -28,13 +29,11 @@ export async function NavAuth() {
         </PopoverTrigger>
         <PopoverContent className="p-1">
           <div className="flex flex-col w-full gap-1">
-            <Link href="/mycampgrounds">
-              <Button radius="md" fullWidth>
-                My Campgrounds
-              </Button>
-            </Link>
-            <form>
-              <Button radius="md" color="danger" fullWidth>
+            <Button radius="md" isDisabled fullWidth>
+              <Link href="/mycampgrounds">My Campgrounds</Link>
+            </Button>
+            <form action={signOutUser}>
+              <Button type="submit" radius="md" color="danger" fullWidth>
                 Log out
               </Button>
             </form>

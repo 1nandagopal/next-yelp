@@ -1,10 +1,14 @@
 "use server";
 
-import { signIn } from "@/libs/auth";
+import { signIn, signOut } from "@/libs/auth";
 
 export async function providerSignUp(provider) {
-  console.log(provider);
-
   if (provider === "github")
     await signIn(provider, { redirectTo: "/campgrounds" });
+}
+
+export async function signOutUser() {
+  await signOut({
+    redirectTo: "/campgrounds",
+  });
 }
