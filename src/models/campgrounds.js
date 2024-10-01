@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import { User } from "./users";
+import mongoose, { Schema } from "mongoose";
 
 const CampgroundsSchema = new mongoose.Schema({
   title: {
@@ -29,6 +28,12 @@ const CampgroundsSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 export const Campground =
