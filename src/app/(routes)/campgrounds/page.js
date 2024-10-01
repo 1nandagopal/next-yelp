@@ -16,7 +16,7 @@ export default async function AllCampgroundsPage() {
       {campgrounds.map((campground) => (
         <Link href={`/${campground.id}`} key={campground.id}>
           <Card
-            className="max-w-[350px] p-1 hover:scale-[1.02]"
+            className="max-w-[350px]  hover:scale-[1.02]"
             key={campground.id}
           >
             <CardHeader>

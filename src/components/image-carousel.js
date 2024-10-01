@@ -23,7 +23,7 @@ export function ImageCarousel({ images }) {
   }, [emblaApi]);
 
   return (
-    <div className=" overflow-hidden select-none" ref={emblaRef}>
+    <div className=" overflow-hidden select-none h-full" ref={emblaRef}>
       <div className="flex h-full">
         {images.map((image) => {
           return (
