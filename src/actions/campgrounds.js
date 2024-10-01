@@ -4,6 +4,7 @@ import { auth } from "@/libs/auth";
 import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campgrounds";
+import mongoose from "mongoose";
 import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
@@ -62,6 +63,8 @@ export async function getAllCampgrounds() {
 }
 
 export async function getCampground(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) return null;
+
   try {
     await connectDB();
     return await Campground.findById(id).populate("author", "name -_id");

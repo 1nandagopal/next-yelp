@@ -15,7 +15,9 @@ export default async function CampgroundPage({ params }) {
           <h3 className="text-2xl">{campground.title}</h3>
           <p>${campground.price}/night</p>
         </div>
-        <ScrollShadow className="">{campground.description}</ScrollShadow>
+        <ScrollShadow className="pr-1 text-justify scrollbar-hide">
+          {campground.description}
+        </ScrollShadow>
         <p>{campground.location}</p>
         <p>By {campground.author.name}</p>
       </div>
