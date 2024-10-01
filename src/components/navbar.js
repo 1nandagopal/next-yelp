@@ -10,7 +10,7 @@ import { AddCampgroundsBtn } from "./nav-newcamp-btn";
 
 export default async function Nav() {
   return (
-    <Navbar position="static" maxWidth="full" className="mb-5">
+    <Navbar position="static" maxWidth="full" isBordered className="mb-5">
       <Link href="/campgrounds">
         <NavbarBrand>
           <p className="text-3xl font-semibold">Campgrounds</p>
