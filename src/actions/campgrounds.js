@@ -56,7 +56,16 @@ export async function getAllCampgrounds() {
     return await Campground.find()
       .select("-description")
       .populate("author", "name -_id");
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getCampground(id) {
+  try {
+    await connectDB();
+    return await Campground.findById(id).populate("author", "name -_id");
+  } catch (err) {
+    console.log(err);
   }
 }
