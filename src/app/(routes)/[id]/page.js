@@ -1,11 +1,14 @@
+import { auth } from "@/libs/auth";
 import { getCampground } from "@/actions/campgrounds";
 import { ImageCarousel } from "@/components/image-carousel";
+import { ReviewForm } from "@/components/review-form";
 import { ScrollShadow } from "@nextui-org/react";
 
 export default async function CampgroundPage({ params }) {
   const campground = await getCampground(params.id);
-
   if (!campground) return;
+
+  const session = await auth();
 
   return (
     <div className="grid grid-cols-3 grid-rows-2 gap-4 h-full">
@@ -24,8 +27,8 @@ export default async function CampgroundPage({ params }) {
       <div className="bg-gray-400 h-full flex justify-center items-center">
         Map place holder
       </div>
-      <div className="bg-rose-400 h-full flex justify-center items-center">
-        D
+      <div className="h-full col-span-2">
+        {session?.user ? <ReviewForm /> : <div>Log In to add reviews</div>}
       </div>
     </div>
   );
