@@ -13,7 +13,7 @@ export default async function AllCampgroundsPage() {
 
   return (
     <div className="flex flex-wrap gap-4">
-      {campgrounds.map((campground) => (
+      {campgrounds?.map((campground) => (
         <Link href={`/${campground.id}`} key={campground.id}>
           <Card
             className="max-w-[350px]  hover:scale-[1.02]"

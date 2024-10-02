@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "./users";
+import { Review } from "./reviews";
 
 const CampgroundsSchema = new mongoose.Schema({
   title: {
