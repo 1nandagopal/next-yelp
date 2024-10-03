@@ -55,5 +55,3 @@ export default async function CampgroundPage({ params }) {
     </div>
   );
 }
-
-export const dynamic = "force-dynamic";
