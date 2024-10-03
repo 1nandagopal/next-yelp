@@ -64,10 +64,29 @@ export async function getAllCampgrounds() {
 
 export async function getCampground(id) {
   if (!mongoose.Types.ObjectId.isValid(id)) return null;
-
   try {
     await connectDB();
-    return await Campground.findById(id).populate("author", "name -_id");
+    const camp = await Campground.findById(id).populate("author", "name -_id");
+    return camp;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getCampgroundWithReviews(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) return;
+  try {
+    await connectDB();
+    const camp = await Campground.findById(id)
+      .populate("author", "name -_id")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+          select: "name -_id",
+        },
+      });
+    return camp;
   } catch (err) {
     console.log(err);
   }
