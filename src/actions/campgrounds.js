@@ -18,7 +18,7 @@ export async function newCampground(prevState, formData) {
   if (!session?.user) return;
 
   try {
-    const imageURLs = await Promise.all(
+    const imageIDs = await Promise.all(
       images.slice(0, Math.min(5, images.length)).map(async (image) => {
         if (image.size === 0) throw new Error("Empty images");
         const buffer = new Uint8Array(await image.arrayBuffer());
@@ -30,24 +30,22 @@ export async function newCampground(prevState, formData) {
             })
             .end(buffer);
         });
-        return uploadResponse.secure_url;
+        return uploadResponse.public_id;
       })
     );
-    await connectDB(imageURLs);
-    let camp = await Campground.create({
+
+    await connectDB();
+    await Campground.create({
       title,
       description,
       price,
       location,
-      images: imageURLs,
+      images: imageIDs,
       author: session.user.id,
     });
-
-    console.log(camp);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
-
   redirect("/campgrounds");
 }
 
@@ -66,8 +64,7 @@ export async function getCampground(id) {
   if (!mongoose.Types.ObjectId.isValid(id)) return null;
   try {
     await connectDB();
-    const camp = await Campground.findById(id).populate("author", "name -_id");
-    return camp;
+    return await Campground.findById(id).populate("author");
   } catch (err) {
     console.log(err);
   }
