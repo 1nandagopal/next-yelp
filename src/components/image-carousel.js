@@ -55,6 +55,7 @@ export function ImageCarousel({ images }) {
                   src={image}
                   fill
                   alt="as"
+                  quality={100}
                   className="object-cover px-[1px]"
                   priority
                   onLoad={(e) => toggleImgStatus(index)}

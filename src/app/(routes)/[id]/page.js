@@ -10,10 +10,15 @@ export default async function CampgroundPage({ params }) {
 
   const session = await auth();
 
+  const imageURLs = campground.images.map(
+    (img) =>
+      `https://res.cloudinary.com/dr34dquqh/image/upload/q_auto:best/f_auto/${img}`
+  );
+
   return (
     <div className="grid grid-cols-3 grid-rows-2 gap-4 h-full">
       <div className="overflow-hidden rounded-lg">
-        <ImageCarousel images={campground.images} />
+        <ImageCarousel images={imageURLs} />
       </div>
       <div className="h-full col-span-2 flex flex-col space-y-2">
         <div className="flex justify-between items-center font-semibold">
