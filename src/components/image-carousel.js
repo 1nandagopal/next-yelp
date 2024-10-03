@@ -33,6 +33,7 @@ export function ImageCarousel({ images }) {
             >
               <Image
                 src={image}
+                loading="eager"
                 fill
                 className="object-cover px-[1px]"
                 alt="campground image"

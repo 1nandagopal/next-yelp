@@ -28,7 +28,11 @@ export default async function CampgroundPage({ params }) {
         Map place holder
       </div>
       <div className="h-full col-span-2">
-        {session?.user ? <ReviewForm /> : <div>Log In to add reviews</div>}
+        {session?.user ? (
+          <ReviewForm campgroundId={params.id} />
+        ) : (
+          <div>Log In to add reviews</div>
+        )}
       </div>
     </div>
   );
