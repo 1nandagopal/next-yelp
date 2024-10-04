@@ -58,7 +58,7 @@ export default async function EditCampgroundPage({ params }) {
             isRequired
             placeholder="Location of your campground"
           />
-          <CheckboxGroup label="Select images to delete" name="images">
+          <CheckboxGroup label="Select images to delete" name="deleteImages">
             <div className="m-2 flex flex-wrap gap-6">
               {campground.images.map((img, i) => (
                 <div key={img}>
