@@ -88,3 +88,31 @@ export async function getCampgroundWithReviews(id) {
     console.log(err);
   }
 }
+
+export async function updateCampground(id, formData) {
+  if (!mongoose.Types.ObjectId.isValid(id)) return;
+
+  const title = formData.get("title");
+  const description = formData.get("description");
+  const price = formData.get("price");
+  const location = formData.get("location");
+  const deleteImages = formData.getAll("deleteImages");
+
+  try {
+    await connectDB();
+    const campground = await Campground.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        price,
+        location,
+      },
+      { new: true }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+
+  // redirect(`/${id}/edit`);
+}
