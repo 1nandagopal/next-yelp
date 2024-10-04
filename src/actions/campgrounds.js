@@ -110,9 +110,20 @@ export async function updateCampground(id, formData) {
       },
       { new: true }
     );
+
+    if (deleteImages.length) {
+      await Promise.all(
+        deleteImages.map(
+          async (img) =>
+            await cloudinary.uploader.destroy(img, { invalidate: true })
+        )
+      );
+      deleteImages.forEach((img) => campground.images.pull(img));
+      await campground.save();
+    }
   } catch (err) {
     console.log(err);
   }
 
-  // redirect(`/${id}/edit`);
+  redirect(`/${id}`);
 }
