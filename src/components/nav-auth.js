@@ -1,6 +1,5 @@
 "use client";
 
-import { signOutUser } from "@/actions/auth";
 import {
   Avatar,
   Button,
@@ -34,9 +33,11 @@ export function NavAuth() {
           </PopoverTrigger>
           <PopoverContent className="p-1">
             <div className="flex flex-col w-full gap-1">
-              <Button radius="md" isDisabled fullWidth>
-                <Link href="/mycampgrounds">My Campgrounds</Link>
-              </Button>
+              <Link href="/mycampgrounds">
+                <Button radius="md" variant="light" fullWidth>
+                  My Campgrounds
+                </Button>
+              </Link>
               <Button
                 onClick={() => signOut()}
                 radius="md"
