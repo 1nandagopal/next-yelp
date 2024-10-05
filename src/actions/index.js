@@ -1,5 +1,6 @@
 import {
   getCampground,
+  getCampgroundsByAuthor,
   getCampgroundWithReviews,
   updateCampground,
 } from "./campgrounds";
@@ -11,6 +12,7 @@ export { providerSignUp } from "./auth";
 export default {
   submitReview,
   getCampground,
+  getCampgroundsByAuthor,
   getCampgroundWithReviews,
   updateCampground,
 };

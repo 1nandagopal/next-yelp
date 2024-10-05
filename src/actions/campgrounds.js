@@ -70,6 +70,19 @@ export async function getCampground(id) {
   }
 }
 
+export async function getCampgroundsByAuthor(authorId) {
+  if (!mongoose.Types.ObjectId.isValid(authorId)) return null;
+
+  try {
+    await connectDB();
+    return await Campground.find({
+      author: authorId,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getCampgroundWithReviews(id) {
   if (!mongoose.Types.ObjectId.isValid(id)) return;
   try {
