@@ -140,3 +140,13 @@ export async function updateCampground(id, formData) {
 
   redirect(`/${id}`);
 }
+
+export async function deleteCampground(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) return;
+  try {
+    await connectDB();
+    const campground = await Campground.findByIdAndDelete(id);
+  } catch (e) {
+    console.log(e);
+  }
+}

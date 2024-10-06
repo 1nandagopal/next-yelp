@@ -1,4 +1,5 @@
 import {
+  deleteCampground,
   getCampground,
   getCampgroundsByAuthor,
   getCampgroundWithReviews,
@@ -15,4 +16,5 @@ export default {
   getCampgroundsByAuthor,
   getCampgroundWithReviews,
   updateCampground,
+  deleteCampground,
 };
