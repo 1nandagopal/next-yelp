@@ -42,9 +42,21 @@ export default async function MyCampgroundsPage() {
                         Edit
                       </Button>
                     </Link>
-                    <Button color="danger" variant="light" radius="none">
-                      Delete
-                    </Button>
+                    <form
+                      action={actions.deleteCampground.bind(
+                        null,
+                        campground.id
+                      )}
+                    >
+                      <Button
+                        type="submit"
+                        color="danger"
+                        variant="light"
+                        radius="none"
+                      >
+                        Delete
+                      </Button>
+                    </form>
                   </PopoverContent>
                 </Popover>
               </div>
@@ -52,6 +64,9 @@ export default async function MyCampgroundsPage() {
             <CardBody>
               <Image
                 src={`https://res.cloudinary.com/dr34dquqh/image/upload/w_500/q_auto/f_auto/v1727972503/${campground.images[0]}`}
+                height={200}
+                width={500}
+                className="object-cover"
               />
             </CardBody>
           </Card>
