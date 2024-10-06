@@ -5,6 +5,7 @@ import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campgrounds";
 import mongoose from "mongoose";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
@@ -146,7 +147,14 @@ export async function deleteCampground(id) {
   try {
     await connectDB();
     const campground = await Campground.findByIdAndDelete(id);
+    if (campground.images.length)
+      await Promise.all(
+        campground.images.map((img) =>
+          cloudinary.uploader.destroy(img, { invalidate: true })
+        )
+      );
   } catch (e) {
     console.log(e);
   }
+  revalidatePath("/mycampgrounds");
 }
