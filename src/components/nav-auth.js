@@ -32,18 +32,18 @@ export function NavAuth() {
             ></Avatar>
           </PopoverTrigger>
           <PopoverContent className="p-1">
-            <div className="flex flex-col w-full gap-1">
+            <div className="flex flex-col rounded-xl overflow-hidden">
+              <Link href="/new">
+                <Button radius="none" color="primary" variant="light">
+                  Add campground
+                </Button>
+              </Link>
               <Link href="/mycampgrounds">
-                <Button radius="md" variant="light" fullWidth>
+                <Button radius="none" variant="light">
                   My Campgrounds
                 </Button>
               </Link>
-              <Button
-                onClick={() => signOut()}
-                radius="md"
-                color="danger"
-                fullWidth
-              >
+              <Button onClick={() => signOut()} radius="none" color="danger">
                 Log out
               </Button>
             </div>

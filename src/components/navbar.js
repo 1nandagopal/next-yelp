@@ -6,7 +6,6 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import { NavAuth } from "./nav-auth";
-import { AddCampgroundsBtn } from "./nav-newcamp-btn";
 
 export default async function Nav() {
   return (
@@ -17,9 +16,6 @@ export default async function Nav() {
         </NavbarBrand>
       </Link>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <AddCampgroundsBtn />
-        </NavbarItem>
         <NavbarItem>
           <NavAuth />
         </NavbarItem>
