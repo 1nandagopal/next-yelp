@@ -31,3 +31,11 @@ export const CampgroundSchema = z
     author: z.string(),
   })
   .strict();
+
+export const ReviewSchema = z
+  .object({
+    body: z.string().trim().min(1, "Review is required"),
+    rating: z.coerce.number().min(1).max(5),
+    author: z.string(),
+  })
+  .strict();
