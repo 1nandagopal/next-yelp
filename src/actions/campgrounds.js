@@ -4,23 +4,31 @@ import { auth } from "@/libs/auth";
 import { cloudinary } from "@/libs/cloudinary";
 import { connectDB } from "@/libs/db";
 import { Campground } from "@/models/campgrounds";
+import { CampgroundSchema } from "@/models/validationSchemas";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function newCampground(prevState, formData) {
-  const title = formData.get("title");
-  const description = formData.get("description");
-  const price = formData.get("price");
-  const location = formData.get("location");
-  const images = formData.getAll("images");
   const session = await auth();
-
   if (!session?.user) return;
+
+  const images = formData.getAll("images");
+
+  const { success, data, error } = CampgroundSchema.safeParse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+    price: formData.get("price"),
+    location: formData.get("location"),
+    images: images,
+    author: session.user.id,
+  });
+  if (!success) return error.flatten().fieldErrors;
+  if (!data) return;
 
   try {
     const imageIDs = await Promise.all(
-      images.slice(0, Math.min(5, images.length)).map(async (image) => {
+      images.map(async (image) => {
         if (image.size === 0) throw new Error("Empty images");
         const buffer = new Uint8Array(await image.arrayBuffer());
         const uploadResponse = await new Promise((resolve, reject) => {
@@ -36,13 +44,15 @@ export async function newCampground(prevState, formData) {
     );
 
     await connectDB();
+
+    const { title, description, price, location, author } = data;
     await Campground.create({
       title,
       description,
       price,
       location,
+      author,
       images: imageIDs,
-      author: session.user.id,
     });
   } catch (err) {
     console.log(err);
