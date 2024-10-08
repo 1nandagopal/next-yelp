@@ -3,6 +3,7 @@
 import { auth } from "@/libs/auth";
 import { Campground } from "@/models/campgrounds";
 import { Review } from "@/models/reviews";
+import { ReviewSchema } from "@/models/validationSchemas";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -17,21 +18,22 @@ export async function submitReview(campgroundId, prevState, formData) {
     const campground = await Campground.findById(campgroundId);
     if (!campground) return;
 
-    const body = formData.get("review");
-    const rating = formData.get("rating");
-
-    const review = await Review.create({
-      body,
-      rating,
-      author: session.user.id,
+    const { success, data, error } = ReviewSchema.safeParse({
+      body: formData.get("review"),
+      rating: formData.get("rating"),
+      author: session?.user.id,
     });
 
+    if (!success) return error.flatten().fieldErrors;
+    if (!data) return;
+
+    const review = await Review.create(data);
     campground.reviews.push(review);
     await campground.save();
-    console.log(campground);
   } catch (err) {
     console.log(err);
   }
 
+  revalidatePath(`/${campgroundId}`);
   redirect(`/${campgroundId}`);
 }
