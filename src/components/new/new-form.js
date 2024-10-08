@@ -7,7 +7,7 @@ import { newCampground } from "@/actions";
 import { Input, Textarea, Image } from "@nextui-org/react";
 
 export function NewCampgroundForm() {
-  const [error, formAction] = useFormState(newCampground, null);
+  const [errors, formAction] = useFormState(newCampground, {});
   const [imageURLs, setImageURLs] = useState([]);
 
   function handleSelect(e) {
@@ -20,29 +20,37 @@ export function NewCampgroundForm() {
 
   return (
     <form action={formAction}>
-      <div className="flex flex-col gap-5">
-        <Input
-          type="text"
-          name="title"
-          label="Title"
-          labelPlacement="outside"
-          placeholder="Give a title for your campground"
-          isRequired
-        />
+      <div className="flex flex-col gap-3 my-6">
+        <div className="flex gap-4 flex-wrap sm:flex-nowrap">
+          <Input
+            type="text"
+            name="title"
+            label="Title"
+            labelPlacement="outside"
+            placeholder="Give a title for your campground"
+            isRequired
+            isInvalid={!!errors?.title}
+            errorMessage={errors?.title?.[0]}
+          />
+          <Input
+            type="price"
+            name="price"
+            label="Price"
+            labelPlacement="outside"
+            placeholder="Price of your campground"
+            isRequired
+            isInvalid={!!errors?.price}
+            errorMessage={errors?.price?.[0]}
+          />
+        </div>
         <Textarea
           name="description"
           label="Description"
           labelPlacement="outside"
           placeholder="Give a description for your campground"
           isRequired
-        />
-        <Input
-          type="price"
-          name="price"
-          label="Price"
-          labelPlacement="outside"
-          placeholder="Price of your campground"
-          isRequired
+          isInvalid={!!errors?.description}
+          errorMessage={errors?.description?.[0]}
         />
         <Input
           type="text"
@@ -51,6 +59,8 @@ export function NewCampgroundForm() {
           labelPlacement="outside"
           isRequired
           placeholder="Location of your campground"
+          isInvalid={!!errors?.location}
+          errorMessage={errors?.location?.[0]}
         />
         <Input
           type="file"
@@ -61,6 +71,8 @@ export function NewCampgroundForm() {
           multiple
           isRequired
           description="Upto 5 images (Max 2MB each)"
+          isInvalid={!!errors?.images}
+          errorMessage={errors?.images?.[0]}
         />
         {!!imageURLs.length && (
           <div className="flex flex-wrap gap-2">
