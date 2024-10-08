@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, Input, Textarea, Image } from "@nextui-org/react";
+import { useState } from "react";
+import SubmitBtn from "../submit-btn";
 import { useFormState } from "react-dom";
 import { newCampground } from "@/actions";
-import { useState } from "react";
+import { Input, Textarea, Image } from "@nextui-org/react";
 
 export function NewCampgroundForm() {
   const [error, formAction] = useFormState(newCampground, null);
@@ -59,7 +60,7 @@ export function NewCampgroundForm() {
           onChange={handleSelect}
           multiple
           isRequired
-          placeholder="Select upto 5 images(Max 2MB)"
+          description="Upto 5 images (Max 2MB each)"
         />
         {!!imageURLs.length && (
           <div className="flex flex-wrap gap-2">
@@ -67,7 +68,6 @@ export function NewCampgroundForm() {
               <Image
                 key={image}
                 src={image}
-                fill
                 height={125}
                 width={125}
                 className="object-cover z-0"
@@ -76,9 +76,9 @@ export function NewCampgroundForm() {
             ))}
           </div>
         )}
-        <Button type="submit" color="primary" className="w-40">
+        <SubmitBtn color="primary" className="w-40">
           Submit
-        </Button>
+        </SubmitBtn>
       </div>
     </form>
   );

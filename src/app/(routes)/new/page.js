@@ -1,13 +1,9 @@
-import Link from "next/link";
-import { NewCampgroundForm } from "./new-campground-form";
+import { NewCampgroundForm } from "@/components/new/new-form";
 
 export default function NewCampgroundPage() {
   return (
-    <div className="p-10 max-w-4xl mx-auto">
-      <div className="mb-10 flex justify-between items-center">
-        <h2 className="text-3xl">Create new campground</h2>
-        <Link href="/campgrounds">Home</Link>
-      </div>
+    <div className="max-w-3xl mx-auto">
+      <h2 className="my-8 text-2xl">New campground</h2>
       <NewCampgroundForm />
     </div>
   );
