@@ -16,11 +16,15 @@ export function NewCampgroundForm() {
       .slice(0, Math.min(5, files.length))
       .map((file) => URL.createObjectURL(file));
     setImageURLs(urlArr);
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   }
 
   return (
     <form action={formAction}>
-      <div className="flex flex-col gap-3 my-6">
+      <div className="flex flex-col gap-4 my-6">
         <div className="flex gap-4 flex-wrap sm:flex-nowrap">
           <Input
             type="text"
@@ -48,6 +52,7 @@ export function NewCampgroundForm() {
           label="Description"
           labelPlacement="outside"
           placeholder="Give a description for your campground"
+          maxRows={6}
           isRequired
           isInvalid={!!errors?.description}
           errorMessage={errors?.description?.[0]}
