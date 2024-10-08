@@ -1,6 +1,6 @@
 import { auth } from "@/libs/auth";
 import { ImageCarousel } from "@/components/image-carousel";
-import { ReviewForm } from "@/components/review-form";
+import { ReviewForm } from "@/components/[id]/review-form";
 import { ScrollShadow } from "@nextui-org/react";
 import actions from "@/actions";
 
